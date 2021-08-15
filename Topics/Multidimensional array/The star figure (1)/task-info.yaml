@@ -1,4 +1,5 @@
 type: code
+custom_name: The star figure
 files:
 - name: src/Main.java
   visible: true
@@ -9,9 +10,6 @@ files:
         }
     }
   learner_created: false
-feedback_link: https://hyperskill.org/learn/step/1926#comment
+feedback_link: https://hyperskill.org/learn/step/1929#comment
 status: Solved
-feedback:
-  message: <html>Correct solution</html>
-  time: Sun, 15 Aug 2021 09:44:27 UTC
 record: -1
