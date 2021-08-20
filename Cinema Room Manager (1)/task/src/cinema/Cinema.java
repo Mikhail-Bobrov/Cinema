@@ -4,99 +4,103 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Cinema {
-    static int row;
-    static int size;
+
     static Scanner sc = new Scanner(System.in);
-    static int firstIndex;
-    static int secondIndex;
-    static String[][] arr = new String[row][size];
-    static String be = "B ";
 
     public static void main(String[] args) {
+        boolean circle = true;
         System.out.println("Enter the number of rows:");
-        int rowsSize = sc.nextInt();
-        System.out.println("Enter the number of seats in each row:");
-        int seats = sc.nextInt();
-        row = rowsSize;
-        size = seats;
-        for (String[] strings : arr) {
-            Arrays.fill(strings, "S ");
+        int rowsSize1 = sc.nextInt();
+
+            System.out.println("Enter the number of seats in each row:");
+            int seats1 = sc.nextInt();
+            String arr[][] = new String[rowsSize1 + 1][seats1 + 1];
+            buildCinema(arr);
+
+            while (circle) {
+                System.out.println("1. Show the seats");
+                System.out.println("2. Buy a ticket");
+                System.out.println("0. Exit");
+                int choice = sc.nextInt();
+                switch (choice) {
+                    case 1:
+                        cinema(arr);
+                        break;
+                    case 2:
+                        ticket(arr, rowsSize1, seats1);
+                        break;
+                    case 0:
+                        circle = false;
+                        break;
+                }
+
+
         }
-
-            do
-            { switch (showTheChoice()) {
-            case 1:
-                cinema();
-                break;
-            case 2:
-                ticket();
-                break;
-            case 0:
-                end();
-            default:
-
-        }}
-        while (showTheChoice()!=0);
-        }
-
-
-
-
-    public static int showTheChoice() {
-        System.out.println("1. Show the seats");
-        System.out.println("2. Buy a ticket");
-        System.out.println("0. Exit");
-        return sc.nextInt();
     }
 
-    public static void cinema() {
-
-
-        System.out.println("Cinema:");
-        System.out.print(" ");
-        for (int i = 1; i < arr.length + 1; i++) {
-            System.out.print(" " + i);
-        }
-
+    public static void buildCinema(String[][] arr) {
         for (int i = 0; i < arr.length; i++) {
-            System.out.println();
-            System.out.print(i + 1 + " ");
             for (int j = 0; j < arr[i].length; j++) {
-                System.out.print(arr[i][j]);
+                if (i == 0 && j != 0) {
+                    arr[i][j] = String.valueOf(j);
+                } else if (i != 0 && j == 0) {
+                    arr[i][j] = String.valueOf(i);
+                } else if (i != 0 && j >= 1 && j <= arr[i].length) {
+                    arr[i][j] = "S";
+                } else if (i == 0 && j == 0) {
+                    arr[i][j] = " ";
+                }
+            }
+        }
+    }
+
+
+    public static void cinema(String arr[][]) {
+        System.out.println("Cinema:");
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; (arr[i] != null && j < arr[i].length); j++) {
+                System.out.print(arr[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void ticket(String[][] arr, int rows, int seats) {
+
+        Scanner sc = new Scanner(System.in);
+        int ticket;
+        int specificRow;
+        int specificSeat;
+        int totalSeats;
+
+        System.out.println("Enter a row number:");
+        specificRow = sc.nextInt();
+        System.out.println("Enter a seat number in that row:");
+        specificSeat = sc.nextInt();
+        if (specificRow <= rows && specificSeat <= seats) {
+
+            totalSeats = (rows - 1) * (seats - 1);
+
+            for (int i = 0; i < arr.length; i++) {
+                for (int j = 0; j < arr[i].length; j++) {
+                    if (i == specificRow && j == specificSeat) {
+                        arr[i][j] = "B";
+                    }
+                }
             }
 
+            if (totalSeats > 60) {
+                if (specificRow < rows / 2) {
+                    ticket = 10;
+                } else {
+                    ticket = 8;
+                }
+            } else {
+                ticket = 8;
+            }
+
+            System.out.println("Ticket price: $" + ticket);
         }
-        System.out.println();
-    }
-
-    public static void ticket() {
-        System.out.println("Enter a row number:");
-        int firstIndex1 = sc.nextInt();
-        System.out.println("Enter a seat number in that row:");
-        int secondIndex1 = sc.nextInt();
-        if ((row * size) < 60) {
-            System.out.println("Ticket price: $10");
-        } else if (firstIndex <= (row / 2)) {
-            System.out.println("Ticket price: $10");
-        } else {
-            System.out.println("Ticket price: $8");
-        }
-        firstIndex = firstIndex1;
-        secondIndex = secondIndex1;
-        cinemaChanged(firstIndex1,secondIndex1);
-    }
-
-    public static void cinemaChanged(int number1, int number2) {
-        if (arr[number1][number2].equals(be)) {
-            arr[number1][number2] = "B ";
-        }
-
-    }
-
-    public static void end() {
-
-
     }
 }
-
 
