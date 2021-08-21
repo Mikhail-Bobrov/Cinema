@@ -89,18 +89,16 @@ public class Cinema {
                 }
             }
 
-            if (totalSeats > 60) {
-                if (specificRow < rows / 2) {
-                    ticket = 10;
-                } else {
-                    ticket = 8;
+            if (totalSeats < 60 || specificRow <= rows / 2) {
+                ticket = 10;
                 }
-            } else {
+
+            else {
                 ticket = 8;
             }
 
             System.out.println("Ticket price: $" + ticket);
         }
-    }
-}
+    }}
+
 
